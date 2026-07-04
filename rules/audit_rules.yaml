@@ -1,74 +1,56 @@
-audit_rules:
-  - id: R001
-    name: "Hostname obligatoire"
-    description: "Chaque équipement doit avoir un nom unique"
-    criticality: "CRITICAL"
-    pattern: "^hostname "
-    expected: true
-    test_conforme: "hostname ROUTER-PARIS"
-    test_erreur: "(aucun hostname)"
+rules:
+  - id: R1
+    name: hostname_check
+    criticite: MAJEURE
+    pattern: "^hostname\\s+\\S+"
+    message_echec: "Hostname manquant ou invalide"
+    inverse: false
 
-  - id: R002
-    name: "Pas de secrets en clair"
-    description: "Aucun mot de passe ne doit être visible"
-    criticality: "CRITICAL"
-    pattern: "password .+"
-    expected: false
-    test_conforme: "enable secret 5 $1$mERr$..."
-    test_erreur: "password MonMotdePasse123"
+  - id: R2
+    name: password_cleartext
+    criticite: CRITIQUE
+    pattern: "enable password\\s+\\S+"
+    message_echec: "Mot de passe en clair détecté"
+    inverse: true
 
-  - id: R003
-    name: "VLAN configurés"
-    description: "Les VLAN principaux doivent être déclarés"
-    criticality: "MAJOR"
-    pattern: "^vlan "
-    expected: true
-    test_conforme: "vlan 10\n vlan 20\n vlan 30"
-    test_erreur: "(aucun VLAN déclaré)"
+  - id: R3
+    name: interface_description
+    criticite: MOYENNE
+    pattern: "^\\s+description\\s+\\S+"
+    message_echec: "Interface sans description détectée"
+    inverse: false
 
-  - id: R004
-    name: "Adresses IP valides"
-    description: "Les adresses IP doivent être au bon format (X.X.X.X)"
-    criticality: "MAJOR"
-    validation: "ipv4_format"
-    expected: true
-    test_conforme: "ip address 192.168.1.1 255.255.255.0"
-    test_erreur: "ip address 256.256.256.1 255.255.255.0"
+  - id: R4
+    name: vlan_check
+    criticite: MOYENNE
+    pattern: "^vlan\\s+\\d+"
+    message_echec: "Aucun VLAN déclaré"
+    inverse: false
 
-  - id: R005
-    name: "Interfaces documentées"
-    description: "Les interfaces actives doivent avoir une description"
-    criticality: "MEDIUM"
-    pattern: "interface"
-    sub_check: "description"
-    expected: true
-    test_conforme: "interface GigabitEthernet0/0\n description LIEN-WAN"
-    test_erreur: "interface GigabitEthernet0/0\n ip address 192.168.1.1"
+  - id: R5
+    name: ip_address_check
+    criticite: MAJEURE
+    pattern: "ip address\\s+\\d+\\.\\d+\\.\\d+\\.\\d+"
+    message_echec: "Adresse IP manquante sur les interfaces"
+    inverse: false
 
-  - id: R006
-    name: "Routes documentées"
-    description: "Chaque route statique doit avoir un commentaire"
-    criticality: "MEDIUM"
-    pattern: "ip route"
-    sub_check: "!"
-    expected: true
-    test_conforme: "! Route par défaut\n ip route 0.0.0.0 0.0.0.0 192.168.1.254"
-    test_erreur: "ip route 0.0.0.0 0.0.0.0 192.168.1.254"
+  - id: R6
+    name: static_route_check
+    criticite: MOYENNE
+    pattern: "ip route.*!.*"
+    message_echec: "Route statique non documentée (commentaire manquant)"
+    inverse: false
 
-  - id: R007
-    name: "SSH obligatoire"
-    description: "SSH doit être configuré, Telnet interdit"
-    criticality: "MEDIUM"
-    pattern: "ssh version 2"
-    expected: true
-    test_conforme: "ssh version 2\n transport input ssh"
-    test_erreur: "transport input telnet"
+  - id: R7
+    name: ssh_check
+    criticite: CRITIQUE
+    pattern: "transport input ssh"
+    message_echec: "SSH non configuré sur les lignes VTY"
+    inverse: false
 
-  - id: R008
-    name: "NTP configuré"
-    description: "Au moins un serveur NTP doit être défini"
-    criticality: "MEDIUM"
-    pattern: "^ntp server"
-    expected: true
-    test_conforme: "ntp server 129.250.35.250"
-    test_erreur: "(aucun serveur NTP)"
+  - id: R8
+    name: ntp_check
+    criticite: MINEURE
+    pattern: "^ntp server\\s+\\S+"
+    message_echec: "Serveur NTP non configuré"
+    inverse: false
