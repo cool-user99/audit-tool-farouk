@@ -6,15 +6,14 @@ import sys
 import os
 from src.importer import load_config
 from src.analyzer import load_rules, analyze_config, afficher_resultats
+from src.reporter import generate_report
 
-# Fichier des règles d'audit
 RULES_FILE = "rules/audit_rules.yaml"
 
 
 def main():
     print("\n=== Audit Tool Farouk ===\n")
 
-    # Vérifier si un fichier config est passé en argument
     if len(sys.argv) < 2:
         print("[USAGE] python main.py <fichier_config>")
         print("[EXEMPLE] python main.py configs/tests/ROUTER-ERREURS.txt")
@@ -34,12 +33,18 @@ def main():
     if not rules:
         sys.exit(1)
 
-    # Étape 3 — Analyser la configuration
+    # Étape 3 — Analyser
     print("\n>>> Étape 3 : Analyse en cours...")
     anomalies = analyze_config(config, rules)
 
-    # Étape 4 — Afficher les résultats
+    # Étape 4 — Afficher dans le terminal
     afficher_resultats(config, anomalies, rules)
+
+    # Étape 5 — Générer le rapport HTML
+    print(">>> Étape 5 : Génération du rapport HTML...")
+    rapport_path = generate_report(config, anomalies, rules)
+    print(f"\n[OK] Ouvre le rapport dans ton navigateur :")
+    print(f"     {os.path.abspath(rapport_path)}\n")
 
 
 if __name__ == "__main__":
