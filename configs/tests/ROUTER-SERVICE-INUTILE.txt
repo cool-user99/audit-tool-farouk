@@ -1,0 +1,19 @@
+hostname R4-MARSEILLE
+!
+service telnet
+service finger
+ip http server
+ip http unsecure-server
+!
+interface GigabitEthernet0/0
+ description LAN-MARSEILLE
+ ip address 172.16.0.1 255.255.255.0
+ no shutdown
+!
+ip route 0.0.0.0 0.0.0.0 172.16.0.254 ! route par defaut
+!
+enable password admin123
+!
+line vty 0 4
+ transport input telnet
+! Services inutiles et dangereux actives

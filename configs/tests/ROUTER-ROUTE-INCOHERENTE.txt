@@ -1,0 +1,21 @@
+hostname R5-TUNIS
+!
+interface GigabitEthernet0/0
+ description LAN-TUNIS
+ ip address 192.168.5.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ description WAN-TUNIS
+ ip address 10.5.0.2 255.255.255.252
+ no shutdown
+!
+ip route 0.0.0.0 0.0.0.0 192.168.99.254
+ip route 10.0.0.0 255.0.0.0 172.16.99.1
+ip route 192.168.100.0 255.255.255.0 10.5.99.1
+!
+ntp server 192.168.5.100
+!
+line vty 0 4
+ transport input ssh
+! Routes statiques sans commentaires

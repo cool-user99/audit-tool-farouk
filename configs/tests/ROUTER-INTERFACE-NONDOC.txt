@@ -1,0 +1,21 @@
+hostname R3-LYON
+!
+interface GigabitEthernet0/0
+ ip address 10.0.1.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ ip address 10.0.2.1 255.255.255.0
+ no shutdown
+!
+interface GigabitEthernet0/2
+ ip address 10.0.3.1 255.255.255.0
+ no shutdown
+!
+ip route 0.0.0.0 0.0.0.0 10.0.1.254 ! route par defaut
+!
+ntp server 10.0.1.100
+!
+line vty 0 4
+ transport input ssh
+! Aucune description sur les interfaces

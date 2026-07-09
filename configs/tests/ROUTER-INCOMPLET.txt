@@ -1,0 +1,13 @@
+hostname
+!
+interface GigabitEthernet0/0
+ no shutdown
+!
+interface GigabitEthernet0/1
+ no shutdown
+!
+line vty 0 4
+ transport input telnet
+! Configuration incomplete
+! Pas d IP, pas de description, pas de NTP
+! Pas de SSH, hostname vide
