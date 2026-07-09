@@ -1,0 +1,50 @@
+equipements:
+
+  - nom: R1-CORE
+    ip: 192.168.1.1
+    type: routeur
+    categorie: distribution
+    localisation: Paris
+    fichier_config: configs/tests/ROUTER-CONFORME.txt
+
+  - nom: R2-PARIS
+    ip: 192.168.2.1
+    type: routeur
+    categorie: acces
+    localisation: Paris
+    fichier_config: configs/tests/ROUTER-VLAN-MANQUANT.txt
+
+  - nom: R3-LYON
+    ip: 10.0.1.1
+    type: routeur
+    categorie: acces
+    localisation: Lyon
+    fichier_config: configs/tests/ROUTER-INTERFACE-NONDOC.txt
+
+  - nom: R4-MARSEILLE
+    ip: 172.16.0.1
+    type: routeur
+    categorie: acces
+    localisation: Marseille
+    fichier_config: configs/tests/ROUTER-SERVICE-INUTILE.txt
+
+  - nom: R5-TUNIS
+    ip: 192.168.5.1
+    type: routeur
+    categorie: acces
+    localisation: Tunis
+    fichier_config: configs/tests/ROUTER-ROUTE-INCOHERENTE.txt
+
+  - nom: R6-INCOMPLET
+    ip: 0.0.0.0
+    type: routeur
+    categorie: inconnu
+    localisation: Inconnu
+    fichier_config: configs/tests/ROUTER-INCOMPLET.txt
+
+  - nom: R7-ERREURS
+    ip: 192.168.99.1
+    type: routeur
+    categorie: acces
+    localisation: Paris
+    fichier_config: configs/tests/ROUTER-ERREURS.txt
