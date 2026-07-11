@@ -9,12 +9,17 @@ from src.importer import load_config, archive_config
 from src.analyzer import load_rules, analyze_config, afficher_resultats
 from src.reporter import generate_report
 from src.comparator import compare_configs, afficher_comparaison
+from src.db_manager import init_db, save_audit
+
 
 RULES_FILE = "rules/audit_rules.yaml"
 
 
 def main():
     print("\n=== Audit Tool Farouk ===\n")
+
+    # Initialiser la base de données
+    init_db()
 
     if len(sys.argv) < 2:
         print("[USAGE] python main.py <fichier_config>")
@@ -57,6 +62,11 @@ def main():
     # Étape 6 — Générer le rapport HTML
     print(">>> Étape 6 : Génération du rapport HTML...")
     rapport_path = generate_report(config, anomalies, rules)
+
+    # Étape 7 — Sauvegarder dans SQLite
+    print(">>> Étape 7 : Sauvegarde dans la base de données...")
+    save_audit(config, anomalies, rules, rapport_path)
+
     print(f"\n[OK] Rapport disponible ici :")
     print(f"     {os.path.abspath(rapport_path)}\n")
 
