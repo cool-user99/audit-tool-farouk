@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Rapport d'audit — {{ audit[1] }}</h1>
+    <a href="/" class="btn-small">← Retour</a>
+</div>
+
+<!-- Infos générales -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ audit[4] }}</div>
+        <div class="stat-label">Règles vérifiées</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" style="color:#dc3545">{{ audit[5] }}</div>
+        <div class="stat-label">Anomalies détectées</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number"
+            style="color:{% if audit[6] >= 80 %}#28a745{% elif audit[6] >= 50 %}#ffc107{% else %}#dc3545{% endif %}">
+            {{ audit[6] }}%
+        </div>
+        <div class="stat-label">Score de conformité</div>
+    </div>
+</div>
+
+<!-- Anomalies -->
+<div class="card">
+    <h2>Anomalies détectées</h2>
+    {% if anomalies %}
+    <table>
+        <thead>
+            <tr>
+                <th>Criticité</th>
+                <th>ID Règle</th>
+                <th>Règle</th>
+                <th>Message</th>
+                <th>Ligne</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in anomalies %}
+            <tr>
+                <td>
+                    {% if a[4] == 'CRITIQUE' %}
+                        <span class="badge badge-red">🔴 CRITIQUE</span>
+                    {% elif a[4] == 'MAJEURE' %}
+                        <span class="badge badge-orange">🟠 MAJEURE</span>
+                    {% elif a[4] == 'MOYENNE' %}
+                        <span class="badge badge-yellow">🟡 MOYENNE</span>
+                    {% else %}
+                        <span class="badge badge-green">🟢 MINEURE</span>
+                    {% endif %}
+                </td>
+                <td>{{ a[3] }}</td>
+                <td>{{ a[3] }}</td>
+                <td>{{ a[5] }}</td>
+                <td>{{ a[6] if a[6] else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center; color:#28a745; padding:30px;">
+        ✅ Aucune anomalie détectée — configuration conforme !
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

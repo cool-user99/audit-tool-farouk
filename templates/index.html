@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Tableau de bord</h1>
+    <a href="/audit" class="btn-primary">+ Lancer un audit</a>
+</div>
+
+<!-- Statistiques globales -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-number">{{ audits|length }}</div>
+        <div class="stat-label">Audits réalisés</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" style="color:#28a745">
+            {{ audits|selectattr('6', 'ge', 80)|list|length }}
+        </div>
+        <div class="stat-label">Configs conformes</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" style="color:#dc3545">
+            {{ audits|selectattr('6', 'lt', 50)|list|length }}
+        </div>
+        <div class="stat-label">Configs non conformes</div>
+    </div>
+</div>
+
+<!-- Tableau des audits -->
+<div class="card">
+    <h2>Historique des audits</h2>
+    {% if audits %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Équipement</th>
+                <th>Date</th>
+                <th>Anomalies</th>
+                <th>Score</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for audit in audits %}
+            <tr>
+                <td>{{ audit[0] }}</td>
+                <td>{{ audit[1] }}</td>
+                <td>{{ audit[3] }}</td>
+                <td>{{ audit[5] }}</td>
+                <td>
+                    {% if audit[6] >= 80 %}
+                        <span class="badge badge-green">{{ audit[6] }}%</span>
+                    {% elif audit[6] >= 50 %}
+                        <span class="badge badge-yellow">{{ audit[6] }}%</span>
+                    {% else %}
+                        <span class="badge badge-red">{{ audit[6] }}%</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="/rapport/{{ audit[0] }}" class="btn-small">Voir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center; color:#999; padding:30px;">
+        Aucun audit réalisé. <a href="/audit">Lancer le premier audit</a>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

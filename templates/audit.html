@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Lancer un audit</h1>
+</div>
+
+{% if message %}
+<div class="alert alert-success">
+    ✅ {{ message }}
+    <a href="/">Voir les résultats</a>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>Sélectionner une configuration</h2>
+    <form method="POST">
+        <div class="form-group">
+            <label>Fichier de configuration :</label>
+            <select name="fichier" class="form-control">
+                {% for f in fichiers %}
+                <option value="{{ f }}">{{ f }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn-primary">
+            Lancer l'audit
+        </button>
+    </form>
+</div>
+{% endblock %}
