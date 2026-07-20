@@ -47,4 +47,4 @@ equipements:
     type: routeur
     categorie: acces
     localisation: Paris
-    fichier_config: configs/tests/ROUTER-ERREURS.txt
+    fichier_config: configs/tests/ROUTER-ERREURS.txt 

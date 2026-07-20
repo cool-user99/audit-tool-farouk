@@ -1,0 +1,46 @@
+! R1 : Hostname obligatoire 
+hostname ROUTER-PARIS
+
+! R3 : VLAN configurés 
+vlan 10
+ name Management
+vlan 20
+ name Data
+vlan 30
+ name Voice
+
+! R5 + R4 : Interfaces avec descriptions et IPs valides 
+interface GigabitEthernet0/0
+ description LIEN-WAN-VERS-LYON
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+
+interface GigabitEthernet0/1
+ description LIEN-LOCAL-PARIS
+ ip address 10.0.0.1 255.255.255.0
+ no shutdown
+
+interface FastEthernet0/0
+ description VLAN-MANAGEMENT
+ ip address 10.0.10.1 255.255.255.0
+ no shutdown
+
+! R6 : Routes documentées 
+! Route par défaut vers Lyon
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
+
+! Route vers le réseau distant
+! ip route 10.20.0.0 255.255.0.0 192.168.1.254
+
+! R7 : SSH obligatoire 
+ssh version 2
+line vty 0 4
+ transport input ssh
+
+! R8 : NTP configuré 
+ntp server 129.250.35.250
+
+! R2 : Pas de secrets en clair 
+enable secret 5 $1$mERr$hx5rVt7rPNoS4wqbXKX7m0
+
+end

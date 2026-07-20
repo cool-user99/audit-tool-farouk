@@ -1,8 +1,11 @@
+# NetAudit Pro — Note de cadrage
+> Nom technique : audit-tool-farouk
+> Nom commercial : NetAudit Pro
+
 #  NOTE DE CADRAGE
 
 **Projet :** Outil d'Audit Automatisé des Configurations Réseau  
 **Stagiaire :** Farouk  
-**Responsable :** [Nom encadrant]  
 **Date :** 01 Juillet 2026  
 **Durée :** 30 jours  
 

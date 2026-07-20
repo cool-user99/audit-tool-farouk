@@ -1,8 +1,12 @@
-# Outil d'Audit Automatisé des Configurations Réseau
+# NetAudit Pro — audit-tool-farouk
 
-**Projet de stage** — Farouk  
-**Durée :** 45 jours  
-**Responsable :** [Nom de l'encadrant]
+> Outil automatisé d'audit des configurations réseau Cisco
+> Développé par Farouk dans le cadre d'un stage d'été
+
+## Description
+NetAudit Pro est un outil Python qui analyse automatiquement 
+les fichiers de configuration réseau, détecte les anomalies 
+de sécurité et génère des rapports HTML professionnels.
 
 ##  Objectif
 

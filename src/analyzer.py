@@ -74,9 +74,9 @@ def afficher_resultats(config, anomalies, rules):
     print("="*55)
 
     if not anomalies:
-        print("\n✅ Aucune anomalie détectée — configuration conforme !\n")
+        print("\n Aucune anomalie détectée — configuration conforme !\n")
     else:
-        print(f"\n⚠️  {len(anomalies)} anomalie(s) détectée(s) :\n")
+        print(f"\n {len(anomalies)} anomalie(s) détectée(s) :\n")
 
         # Ordre d'affichage par criticité
         ordre = {"CRITIQUE": 1, "MAJEURE": 2, "MOYENNE": 3, "MINEURE": 4}

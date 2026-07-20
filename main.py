@@ -1,7 +1,7 @@
 # Point d'entrée principal - audit-tool-farouk
 # Auteur : Farouk
 # Usage  : python main.py <fichier_config>
-#          python main.py <fichier_v1> <fichier_v2>
+#  python main.py <fichier_v1> <fichier_v2>
 
 import sys
 import os
@@ -16,7 +16,7 @@ RULES_FILE = "rules/audit_rules.yaml"
 
 
 def main():
-    print("\n=== Audit Tool Farouk ===\n")
+    print("\n=== NetAudit Pro (audit-tool-farouk) ===\n")
 
     # Initialiser la base de données
     init_db()

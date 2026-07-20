@@ -1,0 +1,31 @@
+!  R1 : PAS DE HOSTNAME
+! (hostname absent)
+
+!  R2 : SECRETS EN CLAIR
+password admin123
+enable password MySecurePassword456
+
+!  R3 : VLAN NON CONFIGURÉ
+! (aucun VLAN déclaré)
+
+! R4 OK : Adresse IP valide
+interface GigabitEthernet0/0
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+
+!  R5 : INTERFACE SANS DESCRIPTION
+interface GigabitEthernet0/1
+ ip address 10.0.0.1 255.255.255.0
+ no shutdown
+
+! R6 : ROUTE NON DOCUMENTÉE
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
+
+!  R7 : TELNET ACTIVÉ (pas SSH)
+line vty 0 4
+ transport input telnet
+
+!  R8 : PAS DE NTP
+! (aucun serveur NTP configuré)
+
+end

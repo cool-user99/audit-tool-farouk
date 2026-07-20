@@ -1,5 +1,4 @@
-# Guide d'installation — audit-tool-farouk
-
+# Guide d'installation — NetAudit Pro
 ## Prérequis
 
 | Outil | Version | Vérification |
