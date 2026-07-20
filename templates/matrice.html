@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Matrice de conformité</h1>
+</div>
+
+<div class="card">
+    <h2>État de conformité par équipement et par règle</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Équipement</th>
+                {% for r in rules %}
+                <th>{{ r }}</th>
+                {% endfor %}
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in matrice %}
+            <tr>
+                <td><strong>{{ row.equipement }}</strong></td>
+                {% for r in rules %}
+                <td style="text-align:center; font-size:18px;">
+                    {{ row.rules[r] }}
+                </td>
+                {% endfor %}
+                <td>
+                    {% if row.score >= 80 %}
+                        <span class="badge badge-green">{{ row.score }}%</span>
+                    {% elif row.score >= 50 %}
+                        <span class="badge badge-yellow">{{ row.score }}%</span>
+                    {% else %}
+                        <span class="badge badge-red">{{ row.score }}%</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top:20px; font-size:13px; color:#666;">
+        <strong>Règles :</strong>
+        R1 Hostname | R2 Password | R3 Description | 
+        R4 VLAN | R5 IP | R6 Route | R7 SSH | R8 NTP
+    </div>
+</div>
+{% endblock %}

@@ -115,3 +115,20 @@ du cahier des charges. L'outil permet d'auditer
 automatiquement des configurations réseau Cisco, 
 de détecter les anomalies de sécurité et de conformité, 
 et de générer des rapports clairs et exploitables.
+
+## 10. Matrice de conformité
+| Configuration | R1 Hostname | R2 Password | R3 Description | R4 VLAN | R5 IP | R6 Route | R7 SSH | R8 NTP | Score |
+|---------------|-------------|-------------|----------------|---------|-------|----------|--------|--------|-------|
+| ROUTER-CONFORME | OK | OK | OK | NON | OK | NON | OK | OK | 75% |
+| ROUTER-ERREURS | NON | NON | NON | NON | OK | NON | NON | NON | 12% |
+| ROUTER-VLAN-MANQUANT | OK | OK | OK | NON | OK | OK | OK | OK | 87% |
+| ROUTER-INTERFACE-NONDOC | OK | OK | NON | NON | OK | OK | OK | OK | 75% |
+| ROUTER-SERVICE-INUTILE | OK | NON | OK | NON | OK | OK | NON | NON | 50% |
+| ROUTER-ROUTE-INCOHERENTE | OK | OK | OK | NON | OK | NON | OK | OK | 75% |
+| ROUTER-INCOMPLET | NON | OK | NON | NON | NON | NON | NON | NON | 25% |
+
+### Légende
+| Symbole | Signification |
+|---------|---------------|
+| OK  | Règle respectée |
+| NON | Anomalie détectée |

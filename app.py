@@ -58,3 +58,38 @@ def rapport(audit_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+@app.route("/matrice")
+def matrice():
+    """Page matrice de conformité."""
+    from src.db_manager import get_all_audits, get_anomalies_by_audit
+
+    audits = get_all_audits()
+    rules = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8"]
+
+    matrice_data = []
+    for audit in audits:
+        anomalies = get_anomalies_by_audit(audit[0])
+        rules_ko = [a[3] for a in anomalies]
+
+        row = {
+            "equipement": audit[1],
+            "score"     : audit[6],
+            "rules"     : {}
+        }
+        for r in rules:
+            rule_name = {
+                "R1": "hostname_check",
+                "R2": "password_cleartext",
+                "R3": "interface_description",
+                "R4": "vlan_check",
+                "R5": "ip_address_check",
+                "R6": "static_route_check",
+                "R7": "ssh_check",
+                "R8": "ntp_check"
+            }.get(r)
+            row["rules"][r] = "NO" if rule_name in rules_ko else "OK"
+
+        matrice_data.append(row)
+
+    return render_template("matrice.html", matrice=matrice_data, rules=rules)
