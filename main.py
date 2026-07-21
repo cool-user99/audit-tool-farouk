@@ -8,7 +8,7 @@ import os
 from src.importer import load_config, archive_config
 from src.analyzer import load_rules, analyze_config, afficher_resultats
 from src.reporter import generate_report
-from src.comparator import compare_configs, afficher_comparaison
+from src.comparator import compare_configs, afficher_comparaison, generate_diff_report
 from src.db_manager import init_db, save_audit
 
 
@@ -31,6 +31,9 @@ def main():
         print(">>> Mode comparaison de deux configurations...\n")
         resultat = compare_configs(sys.argv[1], sys.argv[2])
         afficher_comparaison(resultat)
+        rapport_path = generate_diff_report(resultat)
+        print(f"\n[OK] Rapport disponible ici :")
+        print(f"     {os.path.abspath(rapport_path)}\n")
         return
 
     # Mode audit — 1 fichier
